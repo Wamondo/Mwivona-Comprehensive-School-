@@ -1,0 +1,116 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function for single-document target operations
+    function hasValidId(docId) {
+      return docId is string && docId.size() > 0 && docId.size() <= 128;
+    }
+
+    // Learners Collection
+    match /learners/{learnerId} {
+      allow list: if true;
+      allow get: if hasValidId(learnerId);
+      allow write: if hasValidId(learnerId);
+    }
+
+    // Parents Collection
+    match /parents/{parentId} {
+      allow list: if true;
+      allow get: if hasValidId(parentId);
+      allow write: if hasValidId(parentId);
+    }
+
+    // Teachers Collection
+    match /teachers/{teacherId} {
+      allow list: if true;
+      allow get: if hasValidId(teacherId);
+      allow write: if hasValidId(teacherId);
+    }
+
+    // Fee Structures Collection
+    match /feeStructures/{structureId} {
+      allow list: if true;
+      allow get: if hasValidId(structureId);
+      allow write: if hasValidId(structureId);
+    }
+
+    // Fee Payments & Receipts
+    match /feePayments/{paymentId} {
+      allow list: if true;
+      allow get: if hasValidId(paymentId);
+      allow write: if hasValidId(paymentId);
+    }
+
+    // Payment Reminders & SMS Queue
+    match /paymentReminders/{reminderId} {
+      allow list: if true;
+      allow get: if hasValidId(reminderId);
+      allow write: if hasValidId(reminderId);
+    }
+
+    // Academic Score Cards
+    match /scoreCards/{cardId} {
+      allow list: if true;
+      allow get: if hasValidId(cardId);
+      allow write: if hasValidId(cardId);
+    }
+
+    // Attendance Records
+    match /attendance/{attendanceId} {
+      allow list: if true;
+      allow get: if hasValidId(attendanceId);
+      allow write: if hasValidId(attendanceId);
+    }
+
+    // Security & Audit Logs
+    match /auditLogs/{logId} {
+      allow list: if true;
+      allow get: if hasValidId(logId);
+      allow write: if hasValidId(logId);
+    }
+
+    // School Settings & Integrations
+    match /settings/{configId} {
+      allow list: if true;
+      allow get: if hasValidId(configId);
+      allow write: if hasValidId(configId);
+    }
+
+    // Grade Levels & Streams
+    match /grades/{gradeId} {
+      allow list: if true;
+      allow get: if hasValidId(gradeId);
+      allow write: if hasValidId(gradeId);
+    }
+
+    // Subjects & Learning Areas
+    match /subjects/{subjectId} {
+      allow list: if true;
+      allow get: if hasValidId(subjectId);
+      allow write: if hasValidId(subjectId);
+    }
+
+    // Administrators & Bursars
+    match /admins/{adminId} {
+      allow list: if true;
+      allow get: if hasValidId(adminId);
+      allow write: if hasValidId(adminId);
+    }
+
+    // Academic Assessments (Broadsheet & Exam Configuration)
+    match /assessments/{assessmentId} {
+      allow list: if true;
+      allow get: if hasValidId(assessmentId);
+      allow write: if hasValidId(assessmentId);
+    }
+
+    // Subject Marks Submissions (Subject Teacher to Broadsheet)
+    match /subjectSubmissions/{submissionId} {
+      allow list: if true;
+      allow get: if hasValidId(submissionId);
+      allow write: if hasValidId(submissionId);
+    }
+  }
+}
+

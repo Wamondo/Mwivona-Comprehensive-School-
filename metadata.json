@@ -1,0 +1,6 @@
+{
+  "name": "AcademiaSecure - Parent & School Portal",
+  "description": "Mwivona Comprehensive School management platform for parent and learner records, encrypted contacts, tuition tracking with automated reminders, primary and junior score cards, attendance, and monthly reports.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

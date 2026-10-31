@@ -1,0 +1,277 @@
+{
+  "entities": {
+    "Learner": {
+      "title": "Learner",
+      "description": "Student record enrolled at the school",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "studentId": { "type": "string" },
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "grade": { "type": "string" },
+        "dateOfBirth": { "type": "string" },
+        "gender": { "type": "string" },
+        "parentId": { "type": "string" },
+        "status": { "type": "string" }
+      },
+      "required": ["studentId", "firstName", "lastName", "grade", "parentId", "status"]
+    },
+    "Parent": {
+      "title": "Parent",
+      "description": "Parent or guardian contact and encrypted credentials",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "fullName": { "type": "string" },
+        "relationship": { "type": "string" },
+        "nationalId": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "preferredChannel": { "type": "string" }
+      },
+      "required": ["fullName", "nationalId", "phone", "email"]
+    },
+    "Teacher": {
+      "title": "Teacher",
+      "description": "Teacher profile and assigned subjects/grades",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "nationalOrStaffId": { "type": "string" },
+        "email": { "type": "string" },
+        "teacherType": { "type": "string" },
+        "department": { "type": "string" }
+      },
+      "required": ["name", "phone", "nationalOrStaffId", "teacherType"]
+    },
+    "FeeStructure": {
+      "title": "FeeStructure",
+      "description": "Tuition invoices and fee balances",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "learnerId": { "type": "string" },
+        "term": { "type": "string" },
+        "totalDue": { "type": "number" },
+        "amountPaid": { "type": "number" },
+        "balance": { "type": "number" },
+        "dueDate": { "type": "string" },
+        "status": { "type": "string" }
+      },
+      "required": ["learnerId", "term", "totalDue", "balance", "status"]
+    },
+    "FeePayment": {
+      "title": "FeePayment",
+      "description": "M-Pesa or bank tuition payment receipt",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "transactionRef": { "type": "string" },
+        "receiptNumber": { "type": "string" },
+        "learnerId": { "type": "string" },
+        "parentId": { "type": "string" },
+        "amount": { "type": "number" },
+        "paymentDate": { "type": "string" },
+        "method": { "type": "string" },
+        "status": { "type": "string" }
+      },
+      "required": ["transactionRef", "receiptNumber", "learnerId", "amount", "method", "status"]
+    },
+    "PaymentReminder": {
+      "title": "PaymentReminder",
+      "description": "SMS and Email notification dispatches",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "learnerId": { "type": "string" },
+        "parentId": { "type": "string" },
+        "channel": { "type": "string" },
+        "status": { "type": "string" },
+        "messagePreview": { "type": "string" }
+      },
+      "required": ["channel", "status", "messagePreview"]
+    },
+    "ScoreCard": {
+      "title": "ScoreCard",
+      "description": "Academic assessment score card",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "learnerId": { "type": "string" },
+        "term": { "type": "string" },
+        "averageScore": { "type": "number" }
+      },
+      "required": ["learnerId", "term"]
+    },
+    "AttendanceRecord": {
+      "title": "AttendanceRecord",
+      "description": "Student attendance record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "learnerId": { "type": "string" },
+        "date": { "type": "string" },
+        "status": { "type": "string" }
+      },
+      "required": ["learnerId", "date", "status"]
+    },
+    "AuditLogEntry": {
+      "title": "AuditLogEntry",
+      "description": "Security and activity audit log",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "userName": { "type": "string" },
+        "action": { "type": "string" },
+        "details": { "type": "string" }
+      },
+      "required": ["timestamp", "action", "details"]
+    },
+    "SchoolConfig": {
+      "title": "SchoolConfig",
+      "description": "Institution settings, M-Pesa Daraja & SMS Gateway parameters",
+      "type": "object",
+      "properties": {
+        "schoolName": { "type": "string" },
+        "senderId": { "type": "string" },
+        "paybillNumber": { "type": "string" },
+        "smsProvider": { "type": "string" }
+      }
+    },
+    "Grade": {
+      "title": "Grade",
+      "description": "Grade level cohort (Grade 1 to 9)",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "level": { "type": "number" },
+        "tier": { "type": "string" },
+        "wing": { "type": "string" }
+      },
+      "required": ["name", "level", "tier"]
+    },
+    "Subject": {
+      "title": "Subject",
+      "description": "Curriculum learning area definition",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "code": { "type": "string" },
+        "name": { "type": "string" },
+        "category": { "type": "string" }
+      },
+      "required": ["code", "name", "category"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "School administrator or bursar account",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "nationalOrStaffId": { "type": "string" },
+        "role": { "type": "string" },
+        "title": { "type": "string" }
+      },
+      "required": ["name", "phone", "nationalOrStaffId", "role"]
+    },
+    "Assessment": {
+      "title": "Assessment",
+      "description": "Grade-level academic assessment configuration and exam status",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "grade": { "type": "string" },
+        "term": { "type": "string" },
+        "academicYear": { "type": "string" },
+        "name": { "type": "string" },
+        "type": { "type": "string" },
+        "dateAdministered": { "type": "string" },
+        "status": { "type": "string" }
+      },
+      "required": ["grade", "term", "name", "status"]
+    },
+    "SubjectMarksSubmission": {
+      "title": "SubjectMarksSubmission",
+      "description": "Subject teacher marks submission tracking and status",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "grade": { "type": "string" },
+        "term": { "type": "string" },
+        "subjectName": { "type": "string" },
+        "teacherName": { "type": "string" },
+        "status": { "type": "string" }
+      },
+      "required": ["grade", "term", "subjectName", "status"]
+    }
+  },
+  "firestore": {
+    "/learners/{learnerId}": {
+      "schema": "Learner",
+      "description": "All enrolled learners"
+    },
+    "/parents/{parentId}": {
+      "schema": "Parent",
+      "description": "Registered parent accounts"
+    },
+    "/teachers/{teacherId}": {
+      "schema": "Teacher",
+      "description": "School teachers registry"
+    },
+    "/feeStructures/{structureId}": {
+      "schema": "FeeStructure",
+      "description": "Tuition balances and invoices"
+    },
+    "/feePayments/{paymentId}": {
+      "schema": "FeePayment",
+      "description": "Tuition receipts and transaction logs"
+    },
+    "/paymentReminders/{reminderId}": {
+      "schema": "PaymentReminder",
+      "description": "Automated SMS/Email logs"
+    },
+    "/scoreCards/{cardId}": {
+      "schema": "ScoreCard",
+      "description": "Academic assessments"
+    },
+    "/attendance/{attendanceId}": {
+      "schema": "AttendanceRecord",
+      "description": "Attendance daily logs"
+    },
+    "/auditLogs/{logId}": {
+      "schema": "AuditLogEntry",
+      "description": "System security audit trail"
+    },
+    "/settings/{configId}": {
+      "schema": "SchoolConfig",
+      "description": "School integration settings"
+    },
+    "/grades/{gradeId}": {
+      "schema": "Grade",
+      "description": "Grade cohorts and streams"
+    },
+    "/subjects/{subjectId}": {
+      "schema": "Subject",
+      "description": "Kenyan CBC learning areas"
+    },
+    "/admins/{adminId}": {
+      "schema": "Admin",
+      "description": "Administrators and bursars"
+    },
+    "/assessments/{assessmentId}": {
+      "schema": "Assessment",
+      "description": "Grade assessments and exam configurations"
+    },
+    "/subjectSubmissions/{submissionId}": {
+      "schema": "SubjectMarksSubmission",
+      "description": "Subject teacher marks submissions"
+    }
+  }
+}
