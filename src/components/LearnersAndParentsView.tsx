@@ -26,7 +26,9 @@ import {
   UploadCloud,
   CheckCircle2,
   BookOpen,
-  Building
+  Building,
+  Pencil,
+  Trash2
 } from 'lucide-react';
 import {
   maskPhoneNumber,
@@ -36,6 +38,7 @@ import {
   canRoleDecryptSensitivePII
 } from '../services/cryptoService';
 import { BulkOnboardingModal } from './BulkOnboardingModal';
+import { EditLearnerModal } from './EditLearnerModal';
 
 interface LearnersAndParentsViewProps {
   onOpenAddModal: () => void;
@@ -61,7 +64,32 @@ export const LearnersAndParentsView: React.FC<LearnersAndParentsViewProps> = ({
     toggleParentDecryption,
     grades: configuredGrades,
     updateLearner,
+    deleteLearner,
   } = useApp();
+
+  // Strict Permission Check: Only HOI (Head of Institution) and App Owner are authorized to edit and delete registered learners
+  const isHoiOrOwner = React.useMemo(() => {
+    if (!currentUser) return false;
+    // 1. Verified App Owner
+    if (currentUser.isOwner) return true;
+    if (currentUser.ownerDesignation === 'owner' || currentUser.ownerDesignation === 'hoi') return true;
+    if (currentUser.id === 'user-owner-main') return true;
+
+    // 2. Head of Institution (HOI / Principal)
+    if (currentUser.role === 'admin') {
+      const title = (currentUser.title || '').toLowerCase();
+      const email = (currentUser.email || '').toLowerCase();
+      const id = currentUser.id || '';
+      return (
+        id === 'user-admin-1' ||
+        title.includes('head of') ||
+        title.includes('principal') ||
+        title.includes('hoi') ||
+        email.includes('principal')
+      );
+    }
+    return false;
+  }, [currentUser]);
 
   // Persistent search query in localStorage for fast navigation across tabs
   const [searchQuery, setSearchQueryState] = useState(() => {
@@ -72,6 +100,12 @@ export const LearnersAndParentsView: React.FC<LearnersAndParentsViewProps> = ({
   const [activeLearnerDetail, setActiveLearnerDetail] = useState<LearnerRecord | null>(null);
   const [isBulkOnboardOpen, setIsBulkOnboardOpen] = useState(false);
   const [onboardSuccessNotice, setOnboardSuccessNotice] = useState<string | null>(null);
+
+  // Edit and Delete modals state (Exclusive to HOI and Owner)
+  const [learnerForEdit, setLearnerForEdit] = useState<LearnerRecord | null>(null);
+  const [learnerForDelete, setLearnerForDelete] = useState<LearnerRecord | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
 
   const isLearnerJunior = (l: { grade: string }) => {
     const g = l.grade.toLowerCase();
@@ -513,6 +547,42 @@ export const LearnersAndParentsView: React.FC<LearnersAndParentsViewProps> = ({
                   </p>
                 </div>
               </div>
+
+              {/* Exclusive Action Bar: Restricted to HOI and Owner accounts ONLY */}
+              {isHoiOrOwner && (
+                <div className="px-4 py-2.5 bg-slate-50 border-t border-slate-100 flex items-center justify-between gap-2">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
+                    <Shield className="w-3 h-3 text-indigo-500" />
+                    HOI &amp; Owner
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setLearnerForEdit(learner);
+                      }}
+                      className="flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-indigo-700 bg-white hover:bg-indigo-50 border border-indigo-200 rounded-md transition-colors cursor-pointer shadow-2xs hover:border-indigo-300"
+                      title="Edit registered learner and parent details (HOI and Owner only)"
+                    >
+                      <Pencil className="w-3 h-3 text-indigo-600" />
+                      <span>Edit</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setLearnerForDelete(learner);
+                      }}
+                      className="flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-rose-700 bg-white hover:bg-rose-50 border border-rose-200 rounded-md transition-colors cursor-pointer shadow-2xs hover:border-rose-300"
+                      title="Permanently delete learner from school directory (HOI and Owner only)"
+                    >
+                      <Trash2 className="w-3 h-3 text-rose-600" />
+                      <span>Delete</span>
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           );
         })}
@@ -726,14 +796,147 @@ export const LearnersAndParentsView: React.FC<LearnersAndParentsViewProps> = ({
               </div>
             </div>
 
-            {/* Footer */}
-            <div className="px-6 py-3 border-t border-slate-200 bg-slate-50 flex justify-end">
+            {/* Footer with HOI and Owner Actions */}
+            <div className="px-6 py-3 border-t border-slate-200 bg-slate-50 flex items-center justify-between gap-3">
+              {isHoiOrOwner ? (
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setLearnerForEdit(activeLearnerDetail);
+                    }}
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-indigo-700 bg-white hover:bg-indigo-50 border border-indigo-300 rounded-md transition-colors cursor-pointer shadow-2xs"
+                    title="Edit Learner and Parent Record (HOI and Owner only)"
+                  >
+                    <Pencil className="w-3.5 h-3.5 text-indigo-600" />
+                    <span>Edit Profile (HOI/Owner)</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setLearnerForDelete(activeLearnerDetail);
+                    }}
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-rose-700 bg-white hover:bg-rose-50 border border-rose-300 rounded-md transition-colors cursor-pointer shadow-2xs"
+                    title="Permanently Delete Learner (HOI and Owner only)"
+                  >
+                    <Trash2 className="w-3.5 h-3.5 text-rose-600" />
+                    <span>Delete Learner</span>
+                  </button>
+                </div>
+              ) : (
+                <div />
+              )}
               <button
+                type="button"
                 onClick={() => setActiveLearnerDetail(null)}
                 className="px-4 py-1.5 text-xs font-semibold text-slate-700 hover:text-slate-900 bg-white border border-slate-300 rounded-md hover:bg-slate-50 transition-colors cursor-pointer"
               >
                 Close Profile
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Learner Modal - HOI & Owner Exclusive */}
+      {learnerForEdit && (
+        <EditLearnerModal
+          isOpen={!!learnerForEdit}
+          learner={learnerForEdit}
+          onClose={() => setLearnerForEdit(null)}
+          onSuccess={() => {
+            if (activeLearnerDetail && activeLearnerDetail.id === learnerForEdit.id) {
+              const freshLearner = learners.find((l) => l.id === learnerForEdit.id);
+              if (freshLearner) {
+                setActiveLearnerDetail(freshLearner);
+              }
+            }
+            setLearnerForEdit(null);
+            setOnboardSuccessNotice('Learner and guardian information updated successfully.');
+            setTimeout(() => setOnboardSuccessNotice(null), 5000);
+          }}
+        />
+      )}
+
+      {/* Delete Confirmation Modal - HOI & Owner Exclusive */}
+      {learnerForDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 overflow-y-auto">
+          <div className="bg-white rounded-xl shadow-2xl border border-rose-200 max-w-md w-full overflow-hidden text-xs">
+            <div className="p-6 space-y-4">
+              <div className="w-12 h-12 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center mx-auto">
+                <Trash2 className="w-6 h-6" />
+              </div>
+              <div className="text-center space-y-1">
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-rose-50 text-rose-700 border border-rose-200">
+                  <Shield className="w-3 h-3" /> HOI &amp; Owner Protected Action
+                </span>
+                <h3 className="text-base font-bold text-slate-900">
+                  Permanently Delete Learner?
+                </h3>
+                <p className="text-slate-600 text-xs">
+                  Are you sure you want to permanently delete <strong className="text-slate-900">{learnerForDelete.firstName} {learnerForDelete.lastName}</strong> ({learnerForDelete.studentId}) from <span className="font-semibold text-slate-800">{learnerForDelete.grade}</span>?
+                </p>
+              </div>
+
+              <div className="p-3 bg-amber-50 rounded-lg border border-amber-200 text-amber-900 space-y-1 text-[11px]">
+                <div className="flex items-center gap-1.5 font-bold text-amber-800">
+                  <AlertTriangle className="w-3.5 h-3.5 shrink-0 text-amber-600" />
+                  <span>Irreversible Database Operation</span>
+                </div>
+                <p className="text-amber-700 leading-relaxed">
+                  This action will permanently delete this student record from Firestore and system memory, along with linked academic scores, attendance logs, and fee balances.
+                </p>
+              </div>
+
+              {deleteError && (
+                <div className="p-2.5 bg-rose-50 border border-rose-200 rounded text-rose-700 text-xs">
+                  {deleteError}
+                </div>
+              )}
+
+              <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+                <button
+                  type="button"
+                  disabled={isDeleting}
+                  onClick={() => setLearnerForDelete(null)}
+                  className="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-slate-900 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  disabled={isDeleting}
+                  onClick={async () => {
+                    try {
+                      setIsDeleting(true);
+                      setDeleteError(null);
+                      const deletedName = `${learnerForDelete.firstName} ${learnerForDelete.lastName}`;
+                      await deleteLearner(learnerForDelete.id);
+                      if (activeLearnerDetail?.id === learnerForDelete.id) {
+                        setActiveLearnerDetail(null);
+                      }
+                      setLearnerForDelete(null);
+                      setOnboardSuccessNotice(`Learner "${deletedName}" was successfully removed from the institution.`);
+                      setTimeout(() => setOnboardSuccessNotice(null), 6000);
+                    } catch (err) {
+                      console.error('Delete failed:', err);
+                      setDeleteError('An unexpected error occurred while deleting the learner.');
+                    } finally {
+                      setIsDeleting(false);
+                    }
+                  }}
+                  className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-rose-600 hover:bg-rose-700 rounded-lg transition-colors cursor-pointer shadow-xs disabled:opacity-50"
+                >
+                  {isDeleting ? (
+                    <span>Deleting Record...</span>
+                  ) : (
+                    <>
+                      <Trash2 className="w-3.5 h-3.5" />
+                      <span>Confirm &amp; Permanently Delete</span>
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         </div>

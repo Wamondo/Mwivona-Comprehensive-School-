@@ -170,6 +170,7 @@ interface AppContextType {
     dueDate: string
   ) => Promise<void>;
   updateLearner: (id: string, updates: Partial<LearnerRecord>) => void;
+  deleteLearner: (id: string) => Promise<void>;
   updateParent: (id: string, updates: Partial<ParentRecord>) => void;
   
   // Fee Payments
@@ -1589,6 +1590,28 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     addAuditLog('Updated Learner Profile', `Modified details for learner ${id}`);
   };
 
+  const deleteLearner = async (id: string) => {
+    const target = learners.find((l) => l.id === id);
+    if (!target) return;
+
+    setLearners((prev) => prev.filter((l) => l.id !== id));
+    setFeeStructures((prev) => prev.filter((fs) => fs.learnerId !== id));
+    setScoreCards((prev) => prev.filter((sc) => sc.learnerId !== id));
+    setAttendance((prev) => prev.filter((a) => a.learnerId !== id));
+    setFeePayments((prev) => prev.filter((fp) => fp.learnerId !== id));
+
+    try {
+      await deleteDocumentFromFirestore('learners', id);
+    } catch (e) {
+      console.warn('Firestore delete error for learner:', e);
+    }
+
+    addAuditLog(
+      'Learner Record Deleted',
+      `Permanently removed student ${target.firstName} ${target.lastName} (${target.studentId}) from registered directory.`
+    );
+  };
+
   const updateParent = (id: string, updates: Partial<ParentRecord>) => {
     setParents((prev) =>
       prev.map((p) => {
@@ -2188,6 +2211,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         isParentDecrypted,
         addLearnerWithParent,
         updateLearner,
+        deleteLearner,
         updateParent,
         recordPayment,
         batchDispatchReminders,
