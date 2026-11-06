@@ -195,11 +195,18 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
           />
         </div>
 
-        <h1 className="text-2xl font-extrabold tracking-tight text-white">
-          Mwivona Comprehensive School
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-200 text-xs font-bold tracking-wide uppercase mb-3">
+          EduPulse System
+        </div>
+
+        <h1 className="text-3xl font-black tracking-tight text-white">
+          EduPulse
         </h1>
-        <p className="mt-1 text-xs text-indigo-200 font-medium">
-          Primary School & Junior School Wings · Official Portal
+        <p className="mt-1 text-sm text-indigo-100 font-semibold">
+          Mwivona Comprehensive School
+        </p>
+        <p className="mt-0.5 text-xs text-indigo-300 font-medium">
+          Primary School &amp; Junior School Wings · Official Institutional Portal
         </p>
       </div>
 

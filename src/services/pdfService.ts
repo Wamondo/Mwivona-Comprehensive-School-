@@ -11,7 +11,7 @@ import {
 } from './gradingService';
 
 /**
- * PDF Generation Service for AcademiaSecure
+ * PDF Generation Service for EduPulse
  * Generates official Kenyan school documents formatted in Kshs with seal/signature areas.
  */
 
@@ -281,7 +281,7 @@ export function exportFeeReceiptPdf(
   // Footer
   doc.setFontSize(7);
   doc.setTextColor(148, 163, 184);
-  doc.text(`Generated on ${new Date().toLocaleString()} by AcademiaSecure System`, 105, 290, { align: 'center' });
+  doc.text(`Generated on ${new Date().toLocaleString()} by EduPulse System`, 105, 290, { align: 'center' });
 
   // Save PDF
   doc.save(`Receipt_${payment.receiptNumber}_${studentName.replace(/\s+/g, '_')}.pdf`);
@@ -1237,7 +1237,7 @@ export function exportMonthlyFinancialReportPdf(
 
   doc.setFontSize(7);
   doc.setTextColor(148, 163, 184);
-  doc.text(`Official Financial Audit Statement · AcademiaSecure System · Verified Ratification`, 105, 290, { align: 'center' });
+  doc.text(`Official Financial Audit Statement · EduPulse System · Verified Ratification`, 105, 290, { align: 'center' });
 
   doc.save(`MonthlyFinancialStatement_${stats.term.replace(/\s+/g, '_')}.pdf`);
 }

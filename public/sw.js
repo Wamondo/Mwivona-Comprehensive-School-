@@ -1,5 +1,5 @@
-// Mwivona Comprehensive School Portal Service Worker
-const CACHE_NAME = 'mwivona-cache-v1';
+// EduPulse - Mwivona Comprehensive School Portal Service Worker
+const CACHE_NAME = 'edupulse-cache-v1';
 const STATIC_ASSETS = [
   '/',
   '/index.html',

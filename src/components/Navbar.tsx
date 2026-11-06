@@ -199,8 +199,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => setActiveTab('dashboard')}
               className="text-left cursor-pointer hover:opacity-90 transition-opacity"
             >
-              <div className="font-extrabold text-base tracking-tight text-slate-900 leading-tight">
-                {schoolProfile?.name || 'Mwivona Comprehensive School'}
+              <div className="flex items-center gap-2">
+                <span className="font-black text-base tracking-tight text-indigo-700 leading-tight">
+                  EduPulse
+                </span>
+                <span className="text-slate-300">·</span>
+                <span className="font-extrabold text-sm tracking-tight text-slate-900 leading-tight truncate max-w-[190px] sm:max-w-none">
+                  {schoolProfile?.name || 'Mwivona Comprehensive School'}
+                </span>
               </div>
               <div className="flex items-center gap-1.5 text-[10px] text-slate-500 font-medium">
                 <span className="text-emerald-700 font-semibold">Primary</span>

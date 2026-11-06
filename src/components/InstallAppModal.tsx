@@ -61,7 +61,7 @@ export const InstallAppModal: React.FC<InstallAppModalProps> = ({ isOpen, onClos
                 <Sparkles className="w-3 h-3 text-amber-300" />
                 Progressive Web App (PWA)
               </div>
-              <h2 className="text-base font-bold tracking-tight">Install Mwivona Portal</h2>
+              <h2 className="text-base font-bold tracking-tight">Install EduPulse</h2>
               <p className="text-indigo-100 text-[11px] mt-0.5">
                 Fast, offline-ready application for Phones, Tablets &amp; Computers
               </p>
@@ -82,7 +82,7 @@ export const InstallAppModal: React.FC<InstallAppModalProps> = ({ isOpen, onClos
             <div>
               <p className="font-bold">Installation Initiated!</p>
               <p className="text-[11px] text-emerald-700">
-                Mwivona Comprehensive School Portal is being added to your device home screen / apps.
+                EduPulse (Mwivona Comprehensive School Portal) is being added to your device home screen / apps.
               </p>
             </div>
           </div>
@@ -203,7 +203,7 @@ export const InstallAppModal: React.FC<InstallAppModalProps> = ({ isOpen, onClos
                 <li className="flex items-start gap-2">
                   <span className="w-5 h-5 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-[11px] shrink-0 mt-0.5">4</span>
                   <span>
-                    Tap <strong>Add</strong> in the top right. Mwivona Portal will launch standalone like a native App Store app!
+                    Tap <strong>Add</strong> in the top right. EduPulse will launch standalone like a native App Store app!
                   </span>
                 </li>
               </ol>
@@ -225,7 +225,7 @@ export const InstallAppModal: React.FC<InstallAppModalProps> = ({ isOpen, onClos
                   Look at the right side of the URL address bar at the top: click the <strong className="text-indigo-600">Install icon</strong> (an icon showing an arrow in a box or computer screen with an arrow).
                 </li>
                 <li>
-                  Or click the browser menu (<strong>⋮</strong> or <strong>...</strong>) &rarr; <strong>"Cast, save, and share"</strong> (or <strong>"Apps"</strong>) &rarr; <strong className="text-indigo-600 font-semibold">"Install Mwivona Portal"</strong>.
+                  Or click the browser menu (<strong>⋮</strong> or <strong>...</strong>) &rarr; <strong>"Cast, save, and share"</strong> (or <strong>"Apps"</strong>) &rarr; <strong className="text-indigo-600 font-semibold">"Install EduPulse"</strong>.
                 </li>
                 <li>
                   Click <strong>Install</strong>. A desktop shortcut will be placed on your Desktop and Start / Applications menu!

@@ -236,9 +236,11 @@ const MainLayout: React.FC = () => {
       <footer className="mt-auto border-t border-slate-200 bg-white py-4 px-6 text-xs text-slate-500">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
           <div className="flex items-center gap-2 flex-wrap">
+            <span className="font-black text-indigo-950 tracking-tight">EduPulse</span>
+            <span>·</span>
             <span className="font-bold text-slate-900">Mwivona Comprehensive School</span>
             <span>·</span>
-            <span className="text-slate-600">Primary &amp; Junior School Comprehensive Management Portal</span>
+            <span className="text-slate-600">Primary &amp; Junior School Management Portal</span>
             <span>·</span>
             <span className="inline-flex items-center gap-1 font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-300 font-mono text-[10px]">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />

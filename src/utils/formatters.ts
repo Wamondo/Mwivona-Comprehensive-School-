@@ -1,5 +1,5 @@
 /**
- * Currency & Formatting Utilities for Kenyan AcademiaSecure System
+ * Currency & Formatting Utilities for Kenyan EduPulse System
  */
 
 export function formatKshs(amount: number | undefined | null): string {
