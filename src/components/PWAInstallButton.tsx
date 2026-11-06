@@ -40,7 +40,7 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({ variant = 'n
       {variant === 'navbar' && (
         <button
           onClick={handleClick}
-          title="Install EduPulse on your Phone, Tablet, Laptop, or Computer"
+          title="Install ElimuPulse on your Phone, Tablet, Laptop, or Computer"
           className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-white bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 rounded-lg shadow-2xs hover:shadow-sm transition-all cursor-pointer border border-indigo-500/40"
         >
           <Download className="w-3.5 h-3.5 text-indigo-100" />
@@ -67,7 +67,7 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({ variant = 'n
               <Smartphone className="w-4 h-4 text-indigo-300" />
             </div>
             <div>
-              <p className="font-bold text-xs">Install EduPulse on this Device</p>
+              <p className="font-bold text-xs">Install ElimuPulse on this Device</p>
               <p className="text-[11px] text-indigo-200">
                 Launch full-screen like a native app on Android, iPhone, iPad, Windows, or Mac.
               </p>

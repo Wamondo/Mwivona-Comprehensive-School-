@@ -1,8 +1,8 @@
 {
   "id": "/",
-  "name": "EduPulse - Mwivona Comprehensive School Portal",
-  "short_name": "EduPulse",
-  "description": "EduPulse school management platform for Mwivona Comprehensive School: student records, parent portal, CBC grading, attendance, tuition ledgers, and automated reminders.",
+  "name": "ElimuPulse - Mwivona Comprehensive School Portal",
+  "short_name": "ElimuPulse",
+  "description": "ElimuPulse school management platform for Mwivona Comprehensive School: student records, parent portal, CBC grading, attendance, tuition ledgers, and automated reminders.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

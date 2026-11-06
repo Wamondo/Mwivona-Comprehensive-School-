@@ -201,7 +201,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <div className="flex items-center gap-2">
                 <span className="font-black text-base tracking-tight text-indigo-700 leading-tight">
-                  EduPulse
+                  ElimuPulse
                 </span>
                 <span className="text-slate-300">·</span>
                 <span className="font-extrabold text-sm tracking-tight text-slate-900 leading-tight truncate max-w-[190px] sm:max-w-none">

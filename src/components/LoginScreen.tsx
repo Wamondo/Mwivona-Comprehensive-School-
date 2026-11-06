@@ -196,11 +196,11 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
         </div>
 
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-200 text-xs font-bold tracking-wide uppercase mb-3">
-          EduPulse System
+          ElimuPulse System
         </div>
 
         <h1 className="text-3xl font-black tracking-tight text-white">
-          EduPulse
+          ElimuPulse
         </h1>
         <p className="mt-1 text-sm text-indigo-100 font-semibold">
           Mwivona Comprehensive School

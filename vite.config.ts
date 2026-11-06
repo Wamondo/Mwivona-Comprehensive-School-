@@ -20,10 +20,10 @@ export default defineConfig(() => {
         ],
         manifest: {
           id: '/',
-          name: 'EduPulse - Mwivona Comprehensive School Portal',
-          short_name: 'EduPulse',
+          name: 'ElimuPulse - Mwivona Comprehensive School Portal',
+          short_name: 'ElimuPulse',
           description:
-            'EduPulse school management platform for Mwivona Comprehensive School: student records, parent portal, CBC grading, attendance, tuition ledgers, and automated reminders.',
+            'ElimuPulse school management platform for Mwivona Comprehensive School: student records, parent portal, CBC grading, attendance, tuition ledgers, and automated reminders.',
           theme_color: '#4f46e5',
           background_color: '#f8fafc',
           display: 'standalone',
