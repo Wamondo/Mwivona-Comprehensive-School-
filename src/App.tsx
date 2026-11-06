@@ -14,6 +14,8 @@ import { EnrollLearnerModal } from './components/EnrollLearnerModal';
 import { SecurityModal, AuditLogModal } from './components/SecurityModals';
 import { OfficialProductionCenterModal } from './components/OfficialProductionCenterModal';
 import { LoginScreen } from './components/LoginScreen';
+import { PWAInstallButton } from './components/PWAInstallButton';
+import { OfflineIndicator } from './components/OfflineIndicator';
 import { ShieldCheck, Lock, User, RefreshCw, KeyRound, LogOut, Database, Sparkles } from 'lucide-react';
 
 const MainLayout: React.FC = () => {
@@ -108,6 +110,9 @@ const MainLayout: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-3 flex-wrap">
+            {/* Install PWA Button */}
+            <PWAInstallButton variant="compact" />
+
             {/* Live System Production Badge */}
             <button
               onClick={() => setIsProductionCenterOpen(true)}
@@ -247,6 +252,8 @@ const MainLayout: React.FC = () => {
           </div>
         </div>
       </footer>
+      {/* Offline Connectivity Status Toast */}
+      <OfflineIndicator />
     </div>
   );
 };

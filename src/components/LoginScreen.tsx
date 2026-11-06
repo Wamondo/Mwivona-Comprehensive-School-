@@ -27,6 +27,7 @@ import crestImage from '../assets/images/school_crest_emblem_1792317813141.jpg';
 import { ForgotPasswordModal } from './ForgotPasswordModal';
 import { validateKenyanPhoneNumber } from '../services/cryptoService';
 import { OwnerDesignation } from '../types';
+import { PWAInstallButton } from './PWAInstallButton';
 
 interface LoginScreenProps {
   onLoginSuccess?: () => void;
@@ -222,6 +223,11 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
             </button>
           </div>
         )}
+
+        {/* PWA Install Banner for Phones, Tablets, and Computers */}
+        <div className="mb-4">
+          <PWAInstallButton variant="banner" />
+        </div>
 
         {/* MAIN CONTAINER */}
         <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden text-slate-900">

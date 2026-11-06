@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import crestImage from '../assets/images/school_crest_emblem_1792317813141.jpg';
 import { UserSession, OwnerDesignation } from '../types';
+import { PWAInstallButton } from './PWAInstallButton';
 
 interface NavbarProps {
   activeTab: string;
@@ -234,8 +235,11 @@ export const Navbar: React.FC<NavbarProps> = ({
             })}
           </nav>
 
-          {/* Zone 3: 1 Primary Action & Active Role Switcher */}
-          <div className="flex items-center gap-3 shrink-0">
+          {/* Zone 3: Primary Action & Active Role Switcher */}
+          <div className="flex items-center gap-2.5 shrink-0">
+            {/* Install PWA Button for Phones, Tablets, and Laptops */}
+            <PWAInstallButton variant="navbar" />
+
             {/* Live Production Center launcher */}
             {onOpenProductionCenter && (
               <button
