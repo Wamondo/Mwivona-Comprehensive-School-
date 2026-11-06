@@ -43,7 +43,7 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({ variant = 'n
           title="Install Mwivona Portal on your Phone, Tablet, Laptop, or Computer"
           className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-white bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 rounded-lg shadow-2xs hover:shadow-sm transition-all cursor-pointer border border-indigo-500/40"
         >
-          <Download className="w-3.5 h-3.5 text-indigo-100 animate-bounce" />
+          <Download className="w-3.5 h-3.5 text-indigo-100" />
           <span className="hidden sm:inline">Install App</span>
           <span className="sm:hidden">Install</span>
         </button>

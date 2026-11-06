@@ -3,23 +3,19 @@ import App from './App.tsx';
 import './index.css';
 import { registerSW } from 'virtual:pwa-register';
 
-// Register PWA service worker with auto-update
-registerSW({
-  immediate: true,
-  onNeedRefresh() {
-    console.log('PWA: New version available');
-  },
-  onOfflineReady() {
-    console.log('PWA: Ready for offline operation');
-  },
-});
+// In development preview mode, unregister any conflicting service worker to stop reload loops
+if (import.meta.env.DEV && 'serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then((registrations) => {
+    for (const registration of registrations) {
+      registration.unregister();
+    }
+  });
+}
 
-// Standard browser service worker registration check
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch((err) => {
-      console.warn('Fallback SW registration notice:', err);
-    });
+// In production or when deployed (e.g. Netlify/Cloud Run), activate full PWA service worker
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+  registerSW({
+    immediate: true,
   });
 }
 
